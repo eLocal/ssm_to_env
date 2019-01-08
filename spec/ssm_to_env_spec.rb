@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'aws-sdk-ssm'
 
 RSpec.describe SsmToEnv do
@@ -14,7 +16,7 @@ RSpec.describe SsmToEnv do
     described_class.load!(ssm_key => env_key)
   end
 
-  it "has a version number" do
+  it 'has a version number' do
     expect(SsmToEnv::VERSION).not_to be nil
   end
 

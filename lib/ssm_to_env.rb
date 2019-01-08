@@ -1,11 +1,11 @@
 # frozen_string_literal: true
 
-require "ssm_to_env/version"
+require 'ssm_to_env/version'
 
 module SsmToEnv
   class Loader
     attr_reader :ssm_key_to_env_name_map, :target_hash, :with_decryption, :region
-    def initialize(ssm_key_to_env_name_map, target_hash, region, with_decryption: :true)
+    def initialize(ssm_key_to_env_name_map, target_hash, region, with_decryption: true)
       @ssm_key_to_env_name_map = ssm_key_to_env_name_map
       @region = region
       @target_hash = target_hash
