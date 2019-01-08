@@ -1,8 +1,7 @@
 # SsmToEnv
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/ssm_to_env`. To experiment with that code, run `bin/console` for an interactive prompt.
-
-TODO: Delete this and the text above, and describe your gem
+This gem allows you to take parameters from AWS System Manager and puts them
+in to your `ENV`.
 
 ## Installation
 
@@ -22,7 +21,17 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+Simple use case:
+
+```ruby
+require 'ssm_to_env'
+
+SsmToEnv.load!(
+    '/foo/bar/baz' => 'FOO_BAR'
+)
+```
+
+This will connect to SSM, get the parameter `/foo/bar/baz`, and save it to the `ENV['FOO_BAR']`.
 
 ## Development
 
@@ -32,7 +41,7 @@ To install this gem onto your local machine, run `bundle exec rake install`. To 
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/robdimarco/ssm_to_env.
+Bug reports and pull requests are welcome on GitHub at https://github.com/eLocal/ssm_to_env.
 
 ## License
 
