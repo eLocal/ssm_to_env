@@ -1,4 +1,5 @@
 # SsmToEnv
+[![Build Status](https://travis-ci.com/eLocal/ssm_to_env.svg?branch=master)](https://travis-ci.com/eLocal/ssm_to_env)
 
 This gem allows you to take parameters from AWS System Manager and puts them
 in to your `ENV`.
