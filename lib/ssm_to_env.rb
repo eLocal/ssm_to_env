@@ -18,9 +18,7 @@ module SsmToEnv
     end
 
     def ssm_parameters
-      @ssm_parameters ||= client.get_parameters(
-        names: ssm_key_to_env_name_map.keys, with_decryption: with_decryption
-      ).parameters
+      @ssm_parameters ||= load_ssm_parameters
     end
 
     def load!
@@ -29,6 +27,19 @@ module SsmToEnv
       end
 
       target_hash
+    end
+
+    private
+
+    def load_ssm_parameters
+      rv = []
+
+      # Get 10 parameters at a time as this is a SSM limitation
+      ssm_key_to_env_name_map.keys.each_slice(10) do |keys|
+        rv += client.get_parameters(names: keys, with_decryption: with_decryption).parameters
+      end
+
+      rv
     end
   end
   #
