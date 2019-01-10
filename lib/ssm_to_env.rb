@@ -4,7 +4,11 @@ require 'ssm_to_env/version'
 
 module SsmToEnv
   class Loader
+    # Get 10 parameters at a time as this is a SSM limitation
+    MAXIMUM_ALLOWED_SSM_KEYS_TO_RETRIEVE = 10
+
     attr_reader :ssm_key_to_env_name_map, :target_hash, :with_decryption, :region
+
     def initialize(ssm_key_to_env_name_map, target_hash, region, with_decryption: true)
       @ssm_key_to_env_name_map = ssm_key_to_env_name_map
       @region = region
@@ -34,8 +38,7 @@ module SsmToEnv
     def load_ssm_parameters
       rv = []
 
-      # Get 10 parameters at a time as this is a SSM limitation
-      ssm_key_to_env_name_map.keys.each_slice(10) do |keys|
+      ssm_key_to_env_name_map.keys.each_slice(MAXIMUM_ALLOWED_SSM_KEYS_TO_RETRIEVE) do |keys|
         rv += client.get_parameters(names: keys, with_decryption: with_decryption).parameters
       end
 
